@@ -22,8 +22,6 @@ all: lint_full test
 [doc("Run all checks and tests, but fail on first that returns error (lints, mypy, tests...)")]
 all_ff: lint_full_ff test
 
-
-
 [group("lint")]
 [doc("Run ruff lint check (code formatting)")]
 ruff:
@@ -35,8 +33,6 @@ ruff:
 copier_update answers=ANSWERS_FILE skip-answered="true":
 	uv run copier update --answers-file {{answers}} \
 	{{ if skip-answered == "true" { "--skip-answered" } else { "" } }}
-
-
 
 [group("lint")]
 [doc("Run fawltydeps lint check (deopendency issues)")]
@@ -88,7 +84,6 @@ _set_pythonpath path=PYTHONPATH:
 [doc("Run non-integration tests (optionally specify file=path/to/test_file.py)")]
 test file=TEST_PATH: _set_pythonpath
 	uv run pytest {{file}} --durations=10
-
 
 [group("development")]
 [doc("Run driver for maze pathfinding GA")]
