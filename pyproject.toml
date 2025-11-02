@@ -21,7 +21,6 @@ dev = [
     "mypy>=1.10.0,<2",
     "pytest-asyncio>=0.25.2,<0.26",
     "pytest-cov>=6.0.0,<7",
-    "pytest-env>=1.1.3,<2",
     "pytest-mock>=3.14.0,<4",
     "pytest>=8.3.4,<9",
     "python-dotenv>=1.0.0,<2",
@@ -57,7 +56,7 @@ select = [
 ignore = ["S101", "A003", "B904", "N818", "COM812"]
 
 [tool.ruff.lint.per-file-ignores]
-"ga_maze_pathfinding/main.py" = ["T201"]  # Allow print statements in main demo script
+"ga_maze_pathfinding/__main__.py" = ["T201"]  # Allow print statements in main demo script
 
 [tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = true
@@ -70,7 +69,7 @@ order-by-type = false
 omit = [
     "*/tests/*",
     "*/test_*.py",
-    "ga_maze_pathfinding/main.py",
+    "ga_maze_pathfinding/__main__.py",
 ]
 
 [tool.coverage.report]
@@ -113,8 +112,3 @@ disable_error_code = "misc"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 addopts = "--strict-markers -p no:warnings --cov=. --cov-fail-under=80"
 asyncio_mode = "auto"
-
-[tool.pytest_env]
-FLAVOR = "test"
-DEBUG = "True"
-SERVICE_NAME = "ga-maze-pathfinding"

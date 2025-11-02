@@ -88,3 +88,9 @@ _set_pythonpath path=PYTHONPATH:
 [doc("Run non-integration tests (optionally specify file=path/to/test_file.py)")]
 test file=TEST_PATH: _set_pythonpath
 	uv run pytest {{file}} --durations=10
+
+
+[group("development")]
+[doc("Run driver for maze pathfinding GA")]
+run: _set_pythonpath
+	uv run python -m ga_maze_pathfinding
