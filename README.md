@@ -33,7 +33,7 @@ uv sync
 Run the main script to solve both simple and complex mazes:
 
 ```bash
-python -m ga_maze_pathfinding.main
+just run
 ```
 
 ### Using in Your Own Code
@@ -114,7 +114,7 @@ ga_maze_pathfinding/
 ├── __init__.py
 ├── maze.py          # Maze representation and utilities
 ├── ga_solver.py     # DEAP-based genetic algorithm solver
-└── main.py          # Example usage and demo
+└── __main__.py      # Example usage and demo
 ```
 
 ## Running Tests
@@ -140,22 +140,14 @@ Collisions/Distance penalty: 0.0
 Path length: 8
 
 SOLUTION PATH:
-S . . . .
+S * * * *
 . █ █ █ *
-. * * █ *
-. █ * * *
+. . . █ *
+. █ . . *
 . . . █ E
 
 Legend: S=Start, E=End, *=Path, █=Wall, .=Empty
 Path length: 8 steps
 Reached goal: True
 ```
-
-## License
-
-MIT
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
 
