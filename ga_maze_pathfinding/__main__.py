@@ -1,9 +1,11 @@
 """Main entry point for the maze pathfinding GA."""
 
+import argparse
 from typing import Any
 
 from ga_maze_pathfinding.ga_solver import GASolver
 from ga_maze_pathfinding.maze import Maze
+from ga_maze_pathfinding.maze_configs import mazes
 
 
 def run_ga_solver(maze: Maze, **kwargs: Any) -> None:
@@ -32,34 +34,58 @@ def run_ga_solver(maze: Maze, **kwargs: Any) -> None:
         print(f"... (showing first 30 of {len(best_path)} moves)")
 
 
-def main(mane_name: str = "simple") -> None:
+metaparameters = {
+    "simple5x5": {
+        "population_size": 300,
+        "max_generations": 100,
+        "max_path_length": 50,
+        "crossover_prob": 0.7,
+        "mutation_prob": 0.2,
+        "tournament_size": 3,
+    },
+    "simple5x6": {
+        "population_size": 300,
+        "max_generations": 300,
+        "max_path_length": 50,
+        "crossover_prob": 0.7,
+        "mutation_prob": 0.2,
+        "tournament_size": 3,
+    },
+    "complex10x10": {
+        "population_size": 500,
+        "max_generations": 500,
+        "max_path_length": 100,
+        "crossover_prob": 0.7,
+        "mutation_prob": 0.2,
+        "tournament_size": 5,
+    },
+}
+
+
+def main(maze_name: str = "simple5x5") -> None:
     """Run the genetic algorithm maze solver."""
-    if mane_name == "simple":
-        maze = Maze.create_simple_maze()
-        run_ga_solver(
-            maze=maze,
-            population_size=300,
-            max_generations=100,
-            max_path_length=50,
-            crossover_prob=0.7,
-            mutation_prob=0.2,
-            tournament_size=3,
-        )
-    elif mane_name == "complex":
-        complex_maze = Maze.create_complex_maze()
-        run_ga_solver(
-            maze=complex_maze,
-            population_size=500,
-            max_generations=200,
-            max_path_length=100,
-            crossover_prob=0.7,
-            mutation_prob=0.2,
-            tournament_size=5,
-        )
-    else:
-        raise ValueError(f"Unknown maze name: {mane_name}")
+
+    maze = mazes.get(maze_name)
+    if maze is None:
+        raise ValueError(f"Maze '{maze_name}' not found. Available mazes: {list(mazes.keys())}")
+
+    config = metaparameters.get(maze_name, {})
+    run_ga_solver(
+        maze=maze,
+        **config,
+    )
 
 
 if __name__ == "__main__":
-    maze_name = "complex"
-    main(mane_name=maze_name)
+    parser = argparse.ArgumentParser(description="Run the genetic algorithm maze solver.")
+    available_mazes = list(mazes.keys())
+    parser.add_argument(
+        "--maze",
+        type=str,
+        default=available_mazes[0],
+        choices=available_mazes,
+        help="Maze configuration to use",
+    )
+    args = parser.parse_args()
+    maze_name = args.maze
+    main(maze_name=maze_name)

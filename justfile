@@ -87,5 +87,5 @@ test file=TEST_PATH: _set_pythonpath
 
 [group("development")]
 [doc("Run driver for maze pathfinding GA")]
-run: _set_pythonpath
-	uv run python -m ga_maze_pathfinding
+run maze="simple5x5": _set_pythonpath
+	uv run python -m ga_maze_pathfinding --maze {{ maze }}

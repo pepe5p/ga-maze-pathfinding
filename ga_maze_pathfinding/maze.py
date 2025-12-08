@@ -72,39 +72,6 @@ class Maze:
         """Calculate Manhattan distance from position to goal."""
         return abs(pos.row - self.end.row) + abs(pos.col - self.end.col)
 
-    @classmethod
-    def create_simple_maze(cls) -> "Maze":
-        """Create a simple test maze."""
-        grid = [
-            [0, 0, 0, 0, 0],
-            [0, 1, 1, 1, 0],
-            [0, 0, 0, 1, 0],
-            [0, 1, 0, 0, 0],
-            [0, 0, 0, 1, 0],
-        ]
-        start = Position(0, 0)
-        end = Position(4, 4)
-        return cls(grid, start, end)
-
-    @classmethod
-    def create_complex_maze(cls) -> "Maze":
-        """Create a more complex test maze."""
-        grid = [
-            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 1, 1, 1, 1, 1, 1, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        ]
-        start = Position(0, 0)
-        end = Position(9, 9)
-        return cls(grid, start, end)
-
     def __str__(self) -> str:
         """String representation of the maze."""
         result = []

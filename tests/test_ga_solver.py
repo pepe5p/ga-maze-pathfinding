@@ -1,24 +1,18 @@
-"""Tests for GA solver."""
-
 from ga_maze_pathfinding.ga_solver import GASolver
 from ga_maze_pathfinding.maze import Direction, Maze
 
 
-def test_ga_solver_initialization() -> None:
-    """Test GA solver initialization."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze, population_size=50, max_generations=10, max_path_length=30)
+def test_ga_solver_initialization(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze, population_size=50, max_generations=10, max_path_length=30)
 
-    assert solver.maze == maze
+    assert solver.maze == simple_maze
     assert solver.population_size == 50
     assert solver.max_generations == 10
     assert solver.max_path_length == 30
 
 
-def test_ga_solver_runs() -> None:
-    """Test that GA solver runs without errors."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze, population_size=50, max_generations=10, max_path_length=30)
+def test_ga_solver_runs(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze, population_size=50, max_generations=10, max_path_length=30)
 
     best_path, stats = solver.solve(verbose=False)
 
@@ -27,10 +21,8 @@ def test_ga_solver_runs() -> None:
     assert "logbook" in stats
 
 
-def test_evaluate_individual() -> None:
-    """Test individual evaluation."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze, population_size=50, max_generations=10, max_path_length=20)
+def test_evaluate_individual(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze, population_size=50, max_generations=10, max_path_length=20)
 
     # Create a simple path that moves right and down
     path = [Direction.RIGHT] * 4 + [Direction.DOWN] * 4
@@ -41,26 +33,21 @@ def test_evaluate_individual() -> None:
     assert len(fitness) == 2
 
 
-def test_visualize_path() -> None:
-    """Test path visualization."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze)
+def test_visualize_path(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze)
 
     # Create a simple path
     path = [Direction.RIGHT] * 4 + [Direction.DOWN] * 4
 
     visualization = solver.visualize_path(path)
 
-    # Should return a string
     assert isinstance(visualization, str)
-    assert "S" in visualization  # Start marker
-    assert "E" in visualization  # End marker
+    assert "S" in visualization
+    assert "E" in visualization
 
 
-def test_evaluate_individual_reaches_goal() -> None:
-    """Test evaluation when individual reaches the goal."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze, max_path_length=50)
+def test_evaluate_individual_reaches_goal(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze, max_path_length=50)
 
     # Create a path that reaches the goal
     # Move right 4 times, down 4 times to reach (4, 4)
@@ -72,10 +59,8 @@ def test_evaluate_individual_reaches_goal() -> None:
     assert fitness[1] < 50  # Path length less than max
 
 
-def test_evaluate_individual_with_collisions() -> None:
-    """Test evaluation with wall collisions."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze, max_path_length=20)
+def test_evaluate_individual_with_collisions(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze, max_path_length=20)
 
     # Create a path that hits walls (go up from start immediately)
     path = [Direction.UP] * 10
@@ -85,32 +70,24 @@ def test_evaluate_individual_with_collisions() -> None:
     assert fitness[0] > 0  # Should have collisions
 
 
-def test_mutate_individual() -> None:
-    """Test individual mutation."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze)
+def test_mutate_individual(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze)
 
-    # Create an individual
     individual = [Direction.RIGHT] * 10
 
-    # Mutate with high probability
     mutated = solver._mutate_individual(individual, indpb=1.0)
 
-    # Should return a tuple
     assert isinstance(mutated, tuple)
     assert len(mutated) == 1
 
 
-def test_visualize_path_with_goal_reached() -> None:
-    """Test visualization when goal is reached."""
-    maze = Maze.create_simple_maze()
-    solver = GASolver(maze=maze)
+def test_visualize_path_with_goal_reached(simple_maze: Maze) -> None:
+    solver = GASolver(maze=simple_maze)
 
     # Create a path that should reach the goal
     path = [Direction.RIGHT] * 4 + [Direction.DOWN] * 4
 
     visualization = solver.visualize_path(path)
 
-    # Check that it shows the path
     assert "*" in visualization
     assert "Reached goal" in visualization
