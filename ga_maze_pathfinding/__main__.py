@@ -56,7 +56,7 @@ metaparameters = {
         "max_generations": 500,
         "max_path_length": 100,
         "crossover_prob": 0.7,
-        "mutation_prob": 0.2,
+        "mutation_prob": 0.05,
         "tournament_size": 5,
     },
 }

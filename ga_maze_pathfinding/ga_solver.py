@@ -88,6 +88,7 @@ class GASolver:
         position = self.maze.start
         collisions = 0
         visited_positions = [position]
+        unique_positions = {position}  # Track unique positions explored
 
         # Simulate the path
         for direction in individual:
@@ -100,6 +101,7 @@ class GASolver:
             else:
                 position = new_position
                 visited_positions.append(position)
+                unique_positions.add(position)
 
             # Early stop if reached goal
             if position == self.maze.end:
@@ -108,15 +110,27 @@ class GASolver:
         # Calculate distance to goal from final position
         distance_to_goal = self.maze.manhattan_distance(position)
 
+        # Calculate exploration score (number of unique cells visited)
+        unique_cells_visited = len(unique_positions)
+
+        # Calculate revisit penalty (encourages exploring new cells)
+        revisit_penalty = len(visited_positions) - unique_cells_visited
+
         # Penalty for collisions and distance
         # Also consider path length - shorter paths are better if they reach goal
         if position == self.maze.end:
             # Reached goal: minimize collisions and actual path length
             path_length = len(visited_positions)
-            fitness = (collisions * 10, path_length)
+            # Reward: fewer collisions, shorter path, less revisiting
+            fitness = (collisions * 10 + revisit_penalty * 2, path_length)
         else:
             # Did not reach goal: heavily penalize distance to goal and collisions
-            fitness = (collisions * 10 + distance_to_goal * 5, self.max_path_length)
+            # But reward exploring more unique cells
+            exploration_bonus = -unique_cells_visited  # Negative because we're minimizing
+            fitness = (
+                collisions * 10 + distance_to_goal * 5 + revisit_penalty * 2 + exploration_bonus,
+                self.max_path_length,
+            )
 
         return fitness
 
