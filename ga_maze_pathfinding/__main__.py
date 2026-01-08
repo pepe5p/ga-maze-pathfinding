@@ -42,7 +42,7 @@ metaparameters = {
         "crossover_prob": 0.7,
         "mutation_prob": 0.2,
         "tournament_size": 3,
-        "early_stopping_generations": 15,
+        "early_stopping_generations": 30,
         "early_stopping_min_change": 0.01,
     },
     "simple5x6": {
@@ -52,7 +52,7 @@ metaparameters = {
         "crossover_prob": 0.7,
         "mutation_prob": 0.2,
         "tournament_size": 3,
-        "early_stopping_generations": 20,
+        "early_stopping_generations": 30,
         "early_stopping_min_change": 0.01,
     },
     "complex10x10": {
@@ -62,7 +62,7 @@ metaparameters = {
         "crossover_prob": 0.7,
         "mutation_prob": 0.05,
         "tournament_size": 5,
-        "early_stopping_generations": 30,
+        "early_stopping_generations": 40,
         "early_stopping_min_change": 0.005,
     },
     "medium7x7": {
@@ -72,7 +72,7 @@ metaparameters = {
         "crossover_prob": 0.7,
         "mutation_prob": 0.15,
         "tournament_size": 3,
-        "early_stopping_generations": 20,
+        "early_stopping_generations": 30,
         "early_stopping_min_change": 0.01,
     },
     "narrow8x8": {
@@ -82,7 +82,7 @@ metaparameters = {
         "crossover_prob": 0.75,
         "mutation_prob": 0.1,
         "tournament_size": 4,
-        "early_stopping_generations": 25,
+        "early_stopping_generations": 40,
         "early_stopping_min_change": 0.008,
     },
     "sparse12x12": {
@@ -92,7 +92,7 @@ metaparameters = {
         "crossover_prob": 0.7,
         "mutation_prob": 0.05,
         "tournament_size": 5,
-        "early_stopping_generations": 40,
+        "early_stopping_generations": 60,
         "early_stopping_min_change": 0.005,
     },
 }
